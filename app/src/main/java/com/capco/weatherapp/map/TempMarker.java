@@ -4,18 +4,19 @@ import com.google.android.gms.maps.model.Marker;
 
 public class TempMarker {
     private Marker marker;
-    private boolean isSaved;
     public TempMarker(){
         marker = null;
-        isSaved = false;
     }
-    public void setMarker(Marker marker){
-        if((this.marker != null) && (!isSaved))
-            this.marker.remove();
+    public void setActiveMarker(Marker marker){
+        if((this.marker != null) && (!isSameMarker(marker)))
+            removeOldUnsavedMarker();
         this.marker = marker;
-        isSaved = false;
     }
-    public void saveMarker(){
-        isSaved = true;
+    private boolean isSameMarker(Marker marker){
+        return this.marker.equals(marker);
+    }
+    private void removeOldUnsavedMarker(){
+        if(!MarkerManager.getMarkerIsSaved(this.marker))
+            this.marker.remove();
     }
 }

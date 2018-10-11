@@ -2,6 +2,7 @@ package com.capco.weatherapp.api.geocode;
 
 import android.util.Log;
 
+import com.capco.weatherapp.GsonUtil;
 import com.capco.weatherapp.api.ApiCallRunnable;
 import com.google.android.gms.maps.model.LatLng;
 
@@ -41,7 +42,7 @@ public class GeocodeCallRunnable extends ApiCallRunnable {
                     stringBuilder.append(line).append("\n");
                 }
                 bufferedReader.close();
-                lastResult = stringBuilder.toString();
+                lastResult = GsonUtil.getGeocodeAPICity(stringBuilder.toString());
                 super.run();
             }
             finally{

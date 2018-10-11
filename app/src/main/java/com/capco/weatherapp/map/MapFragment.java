@@ -36,4 +36,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, MapView
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.google_map);
         mapFragment.getMapAsync(this);
     }
+
+
 }
