@@ -1,10 +1,14 @@
 package com.capco.weatherapp.map;
 
+import android.content.Context;
 import android.os.Handler;
 
 import com.capco.weatherapp.ApplicationState;
 import com.capco.weatherapp.api.ApiListener;
 import com.capco.weatherapp.api.geocode.GeocodeCallRunnable;
+import com.capco.weatherapp.location.Location;
+import com.capco.weatherapp.location.LocationBookmarkService;
+import com.capco.weatherapp.location.LocationBookmarkSharedPreferencesRepository;
 import com.capco.weatherapp.map.savableinfowindow.SavableInfoWindowAdapter;
 import com.capco.weatherapp.map.savableinfowindow.SavableInfoWindowPresenter;
 import com.capco.weatherapp.map.savableinfowindow.SavablePresenter;
@@ -21,17 +25,20 @@ public class MapFragmentPresenter implements MapPresenter{
     private static final String TAG = "MapFragmentPresenter";
     private MapView mapView;
     private GoogleMap googleMap;
+    private LocationBookmarkService locationBookmarkService;
     private TempMarker tempMarker = new TempMarker();
     private Map<Marker, SavablePresenter> savablePresenters = new HashMap<>();
     @Override
     public void registerMapView(MapView mapView) {
         this.mapView = mapView;
         mapView.initialize();
+        resetLocationBookmarkService();
     }
 
     @Override
     public void registerGoogleMap(GoogleMap googleMap) {
         this.googleMap = googleMap;
+        List<Marker> markers;
         googleMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
             @Override
             public void onMapLongClick(LatLng latLng) {
@@ -55,9 +62,17 @@ public class MapFragmentPresenter implements MapPresenter{
             public void onInfoWindowClick(Marker marker) {
                 SavablePresenter savablePresenter = getSavablePresenter(marker);
                 savablePresenter.updateView(MarkerManager.toggleMarker(marker), marker);
+                if(MarkerManager.getMarkerIsSaved(marker)) {
+                    Location location = MarkerManager.transformToLocation(marker);
+                    getLocationBookmarkService().saveLocation(location);
+                }
             }
         });
-        List<Marker> markers = MarkerManager.recreateMarkers(googleMap);
+
+        if(MarkerManager.isEmpty())
+            markers = MarkerManager.loadMarkers(getLocationBookmarkService().getAllLocations(), googleMap);
+        else
+            markers = MarkerManager.recreateMarkers(googleMap);
         recreatePresenters(markers);
     }
 
@@ -79,6 +94,18 @@ public class MapFragmentPresenter implements MapPresenter{
             }
         }
         return null;
+    }
+
+    @Override
+    public LocationBookmarkService getLocationBookmarkService() {
+        return locationBookmarkService;
+    }
+
+    private void resetLocationBookmarkService(){
+        locationBookmarkService = new LocationBookmarkSharedPreferencesRepository(
+                mapView.getContext().getSharedPreferences(
+                        LocationBookmarkSharedPreferencesRepository.PREFERENCE_PACKAGE,
+                        Context.MODE_PRIVATE));
     }
 
     private void recreatePresenters(List<Marker> newMarkers){

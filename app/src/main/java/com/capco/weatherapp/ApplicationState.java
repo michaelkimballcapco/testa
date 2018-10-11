@@ -1,5 +1,6 @@
 package com.capco.weatherapp;
 
+import com.capco.weatherapp.location.LocationBookmarkService;
 import com.capco.weatherapp.main.MainActivityPresenter;
 import com.capco.weatherapp.main.MainPresenter;
 import com.capco.weatherapp.map.MapFragmentPresenter;
@@ -8,6 +9,7 @@ import com.capco.weatherapp.map.MapPresenter;
 public class ApplicationState {
     private static MainPresenter mainPresenter;
     private static MapPresenter mapPresenter;
+    private static LocationBookmarkService locationBookmarkService;
     private static String googleAPIKey;
     private static String openWeatherAPIKey;
     public static MainPresenter getMainPresenter(){

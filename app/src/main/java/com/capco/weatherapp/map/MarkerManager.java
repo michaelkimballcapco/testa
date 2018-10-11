@@ -2,7 +2,9 @@ package com.capco.weatherapp.map;
 
 import android.util.Log;
 
+import com.capco.weatherapp.location.Location;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -15,6 +17,11 @@ import java.util.Map;
 public class MarkerManager {
     private static final String TAG = "MarkerManager";
     private static Map<String, SavedMarker> markerIsSaved = new HashMap<>();
+
+    public static boolean isEmpty(){
+        return markerIsSaved.isEmpty();
+    }
+
     public static void addMarker(Marker marker) {
         SavedMarker savedMarker = new SavedMarker(marker);
         markerIsSaved.put(savedMarker.toString(), savedMarker);
@@ -58,6 +65,12 @@ public class MarkerManager {
     }
 
     public static List<Marker> recreateMarkers(GoogleMap map){
+        List<Marker> newMarkers = getNewMarkersAndRemoveOld(map);
+        addListOfMarkers(newMarkers);
+        return newMarkers;
+    }
+
+    private static List<Marker> getNewMarkersAndRemoveOld(GoogleMap map){
         Iterator<Map.Entry<String, SavedMarker>> iterator = markerIsSaved.entrySet().iterator();
         List<Marker> newMarkers = new ArrayList<>();
         while(iterator.hasNext())
@@ -70,12 +83,41 @@ public class MarkerManager {
             Marker marker = map.addMarker(markerOptions);
             newMarkers.add(marker);
         }
-        for(Marker marker: newMarkers){
+        return newMarkers;
+    }
+
+    public static List<Marker> loadMarkers(List<Location> locations, GoogleMap map){
+        markerIsSaved.clear();
+        List<Marker> markers = getMarkersFromLocations(locations, map);
+        addListOfMarkers(markers);
+        return markers;
+    }
+
+    private static List<Marker> getMarkersFromLocations(List<Location> locations, GoogleMap map){
+        List<Marker> markers = new ArrayList<>();
+        for(Location location: locations){
+            MarkerOptions markerOptions = new MarkerOptions();
+            markerOptions.title(location.getName())
+                    .position(new LatLng(location.getLatitude(), location.getLongitude()));
+            Marker marker = map.addMarker(markerOptions);
+            markers.add(marker);
+        }
+        return markers;
+    }
+
+    private static void addListOfMarkers(List<Marker> markers){
+        for(Marker marker: markers){
             SavedMarker savedMarker = new SavedMarker(marker);
             savedMarker.toggleSave();
             markerIsSaved.put(savedMarker.toString(), savedMarker);
-            Log.i(TAG, marker.getId() + ": " + marker.getTitle());
         }
-        return newMarkers;
+    }
+
+    public static Location transformToLocation(Marker marker){
+        Location location = new Location();
+        location.setName(marker.getTitle());
+        location.setLongitude(marker.getPosition().longitude);
+        location.setLatitude(marker.getPosition().latitude);
+        return location;
     }
 }

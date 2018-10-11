@@ -1,5 +1,6 @@
 package com.capco.weatherapp.map;
 
+import com.capco.weatherapp.ApplicationState;
 import com.google.android.gms.maps.model.Marker;
 
 public class TempMarker {
@@ -16,7 +17,9 @@ public class TempMarker {
         return this.marker.equals(marker);
     }
     private void removeOldUnsavedMarker(){
-        if(!MarkerManager.getMarkerIsSaved(this.marker))
+        if(!MarkerManager.getMarkerIsSaved(this.marker)) {
             this.marker.remove();
+            ApplicationState.getMapPresenter().getLocationBookmarkService().removeLocation(this.marker.getTitle());
+        }
     }
 }
