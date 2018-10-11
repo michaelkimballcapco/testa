@@ -1,17 +1,20 @@
 package com.capco.weatherapp;
 
-import com.capco.weatherapp.location.LocationBookmarkService;
+import com.capco.weatherapp.location.LocationListFragmentPresenter;
+import com.capco.weatherapp.location.LocationListPresenter;
 import com.capco.weatherapp.main.MainActivityPresenter;
 import com.capco.weatherapp.main.MainPresenter;
 import com.capco.weatherapp.map.MapFragmentPresenter;
 import com.capco.weatherapp.map.MapPresenter;
 
 public class ApplicationState {
+
     private static MainPresenter mainPresenter;
     private static MapPresenter mapPresenter;
-    private static LocationBookmarkService locationBookmarkService;
+    private static LocationListPresenter locationListPresenter;
     private static String googleAPIKey;
     private static String openWeatherAPIKey;
+
     public static MainPresenter getMainPresenter(){
         if(mainPresenter == null)
             mainPresenter = new MainActivityPresenter();
@@ -21,6 +24,12 @@ public class ApplicationState {
         if(mapPresenter == null)
             mapPresenter = new MapFragmentPresenter();
         return mapPresenter;
+    }
+
+    public static LocationListPresenter getLocationListPresenter(){
+        if(locationListPresenter == null)
+            locationListPresenter = new LocationListFragmentPresenter();
+        return locationListPresenter;
     }
 
     public static String getGoogleAPIKey() {

@@ -19,7 +19,7 @@ public class TempMarker {
     private void removeOldUnsavedMarker(){
         if(!MarkerManager.getMarkerIsSaved(this.marker)) {
             this.marker.remove();
-            ApplicationState.getMapPresenter().getLocationBookmarkService().removeLocation(this.marker.getTitle());
+            ApplicationState.getMainPresenter().getLocationBookmarkService().removeLocation(this.marker.getTitle());
         }
     }
 }

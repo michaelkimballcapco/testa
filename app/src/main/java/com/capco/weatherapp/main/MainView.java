@@ -1,5 +1,9 @@
 package com.capco.weatherapp.main;
 
+import android.content.Context;
+
 public interface MainView {
-    void initialize();
+    void switchToMapFragment();
+    void switchToLocationFragment();
+    Context getApplicationContext();
 }

@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.capco.weatherapp.ApplicationState;
+import com.capco.weatherapp.location.LocationListFragment;
 import com.capco.weatherapp.map.MapFragment;
 import com.capco.weatherapp.R;
 
@@ -20,10 +21,18 @@ public class MainActivity extends AppCompatActivity implements MainView {
     }
 
     @Override
-    public void initialize() {
+    public void switchToMapFragment() {
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         ft.replace(R.id.fragment_frame, new MapFragment());
+        ft.commit();
+    }
+
+    @Override
+    public void switchToLocationFragment() {
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.replace(R.id.fragment_frame, new LocationListFragment());
         ft.commit();
     }
 

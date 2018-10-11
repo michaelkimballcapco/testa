@@ -27,7 +27,7 @@ public class SavableInfoWindowAdapter implements GoogleMap.InfoWindowAdapter, Sa
 
     private void renderInfoWindowText(Marker marker){
         String title = marker.getTitle();
-        TextView city = mWindow.findViewById(R.id.point_title);
+        TextView city = mWindow.findViewById(R.id.tv_point_title);
         city.setText(title);
     }
 
