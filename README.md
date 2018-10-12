@@ -1,5 +1,9 @@
 # Mobile assignment PS Readme #
 
+## Configuring the App ##
+
+To configure this app, create a gradle.properties file modeled after the gradle.example.properties file and fill it with your API keys.
+
 ## Feedback ##
 
 Android Studio 3.2 was used supporting Android 4.1+.
