@@ -2,8 +2,8 @@ package com.capco.weatherapp.main;
 
 import android.content.Context;
 
-import com.capco.weatherapp.location.LocationBookmarkService;
-import com.capco.weatherapp.location.LocationBookmarkSharedPreferencesRepository;
+import com.capco.weatherapp.location.service.LocationBookmarkService;
+import com.capco.weatherapp.location.service.LocationBookmarkSharedPreferencesRepository;
 
 public class MainActivityPresenter implements MainPresenter{
 
@@ -32,5 +32,15 @@ public class MainActivityPresenter implements MainPresenter{
                 mainView.getApplicationContext().getSharedPreferences(
                         LocationBookmarkSharedPreferencesRepository.PREFERENCE_PACKAGE,
                         Context.MODE_PRIVATE));
+    }
+
+    @Override
+    public void switchToMapFragment() {
+        mainView.switchToMapFragment();
+    }
+
+    @Override
+    public void switchToLocationFragment() {
+        mainView.switchToLocationFragment();
     }
 }

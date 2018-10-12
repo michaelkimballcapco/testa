@@ -1,7 +1,7 @@
 package com.capco.weatherapp.map.savableinfowindow;
 
 import com.capco.weatherapp.ApplicationState;
-import com.capco.weatherapp.map.MarkerManager;
+import com.capco.weatherapp.map.marker.MarkerManager;
 import com.google.android.gms.maps.model.Marker;
 
 public class SavableInfoWindowPresenter implements SavablePresenter {

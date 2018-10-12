@@ -1,7 +1,7 @@
 package com.capco.weatherapp;
 
 import com.capco.weatherapp.api.geocode.model.GeocodeResponse;
-import com.capco.weatherapp.location.Location;
+import com.capco.weatherapp.location.model.Location;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 

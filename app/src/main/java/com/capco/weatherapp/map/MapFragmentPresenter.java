@@ -5,7 +5,9 @@ import android.os.Handler;
 import com.capco.weatherapp.ApplicationState;
 import com.capco.weatherapp.api.ApiListener;
 import com.capco.weatherapp.api.geocode.GeocodeCallRunnable;
-import com.capco.weatherapp.location.Location;
+import com.capco.weatherapp.location.model.Location;
+import com.capco.weatherapp.map.marker.MarkerManager;
+import com.capco.weatherapp.map.marker.TempMarker;
 import com.capco.weatherapp.map.savableinfowindow.SavableInfoWindowAdapter;
 import com.capco.weatherapp.map.savableinfowindow.SavableInfoWindowPresenter;
 import com.capco.weatherapp.map.savableinfowindow.SavablePresenter;
@@ -68,6 +70,14 @@ public class MapFragmentPresenter implements MapPresenter{
             markers = MarkerManager.loadMarkers(ApplicationState.getMainPresenter().getLocationBookmarkService().getAllLocations(), googleMap);
         else
             markers = MarkerManager.recreateMarkers(googleMap);
+        recreatePresenters(markers);
+    }
+
+    @Override
+    public void reloadLocations() {
+        if(googleMap == null)
+            return;
+        List<Marker> markers = MarkerManager.loadMarkers(ApplicationState.getMainPresenter().getLocationBookmarkService().getAllLocations(), googleMap);
         recreatePresenters(markers);
     }
 

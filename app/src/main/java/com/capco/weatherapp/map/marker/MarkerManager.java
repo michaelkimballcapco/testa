@@ -1,8 +1,6 @@
-package com.capco.weatherapp.map;
+package com.capco.weatherapp.map.marker;
 
-import android.util.Log;
-
-import com.capco.weatherapp.location.Location;
+import com.capco.weatherapp.location.model.Location;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;

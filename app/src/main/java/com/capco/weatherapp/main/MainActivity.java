@@ -1,5 +1,6 @@
 package com.capco.weatherapp.main;
 
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +13,8 @@ import com.capco.weatherapp.R;
 
 public class MainActivity extends AppCompatActivity implements MainView {
 
+    private boolean initialized = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,18 +25,22 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
     @Override
     public void switchToMapFragment() {
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.replace(R.id.fragment_frame, new MapFragment());
-        ft.commit();
+        switchFragment(new MapFragment());
     }
 
     @Override
     public void switchToLocationFragment() {
+        switchFragment(new LocationListFragment());
+    }
+
+    private void switchFragment(Fragment fragment){
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
-        ft.replace(R.id.fragment_frame, new LocationListFragment());
+        ft.replace(R.id.fragment_frame, fragment);
+        if(initialized)
+            ft.addToBackStack(null);
         ft.commit();
+        initialized = true;
     }
 
     @Override

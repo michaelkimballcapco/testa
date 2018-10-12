@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.capco.weatherapp.R;
+import com.capco.weatherapp.location.model.Location;
 
 import java.util.List;
 

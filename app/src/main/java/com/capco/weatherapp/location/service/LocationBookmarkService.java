@@ -1,4 +1,6 @@
-package com.capco.weatherapp.location;
+package com.capco.weatherapp.location.service;
+
+import com.capco.weatherapp.location.model.Location;
 
 import java.util.List;
 

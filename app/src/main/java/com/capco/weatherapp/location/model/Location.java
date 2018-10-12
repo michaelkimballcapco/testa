@@ -1,4 +1,4 @@
-package com.capco.weatherapp.location;
+package com.capco.weatherapp.location.model;
 
 public class Location {
     private double latitude;

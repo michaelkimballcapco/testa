@@ -1,14 +1,13 @@
-package com.capco.weatherapp.location;
+package com.capco.weatherapp.location.service;
 
 import android.content.SharedPreferences;
 
 import com.capco.weatherapp.GsonUtil;
+import com.capco.weatherapp.location.model.Location;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
-import static android.content.Context.MODE_PRIVATE;
 
 public class LocationBookmarkSharedPreferencesRepository implements LocationBookmarkService {
 

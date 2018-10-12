@@ -1,4 +1,4 @@
-package com.capco.weatherapp.map;
+package com.capco.weatherapp.map.marker;
 
 import com.google.android.gms.maps.model.Marker;
 
