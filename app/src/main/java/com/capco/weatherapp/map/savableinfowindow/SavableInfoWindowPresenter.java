@@ -26,6 +26,7 @@ public class SavableInfoWindowPresenter implements SavablePresenter {
             savableAdapter.save(marker);
         else {
             MarkerManager.removeMarker(marker);
+            ApplicationState.getLocationListPresenter().reloadLocations();
             savableAdapter.unsave(marker);
         }
     }

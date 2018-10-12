@@ -11,4 +11,9 @@ public class LocationListFragmentPresenter implements LocationListPresenter {
         this.locationListView = locationListView;
         this.locationListView.loadLocations(ApplicationState.getMainPresenter().getLocationBookmarkService().getAllLocations());
     }
+
+    @Override
+    public void reloadLocations() {
+        this.locationListView.loadLocations(ApplicationState.getMainPresenter().getLocationBookmarkService().getAllLocations());
+    }
 }
