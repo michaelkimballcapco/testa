@@ -6,6 +6,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 import com.capco.weatherapp.ApplicationState;
@@ -25,6 +27,11 @@ public class HelpFragment extends Fragment implements HelpView {
     @Override
     public void initialize() {
         WebView webView = view.findViewById(R.id.wv_help);
+        webView.setWebChromeClient(new WebChromeClient());
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.getSettings().setPluginState(WebSettings.PluginState.ON);
+        webView.getSettings().setAllowFileAccessFromFileURLs(true);
+
         webView.loadUrl("file:///android_asset/help.html");
     }
 }

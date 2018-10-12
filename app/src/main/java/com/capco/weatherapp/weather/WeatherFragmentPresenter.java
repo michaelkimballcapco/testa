@@ -25,7 +25,7 @@ public class WeatherFragmentPresenter implements WeatherPresenter {
     private void callWeatherAPIAndUpdateView(Location location){
         WeatherCallRunnable weatherCall = new WeatherCallRunnable(
                 location, ApplicationState.getOpenWeatherAPIKey(),
-                ApplicationState.getMeasurementSystem());
+                ApplicationState.getMainPresenter().getSettingsService().getMeasurementSetting());
         weatherCall.registerListener(new ApiListener() {
             @Override
             public void update(Object data) {

@@ -20,7 +20,6 @@ public class ApplicationState {
     private static LocationListPresenter locationListPresenter;
     private static String googleAPIKey;
     private static String openWeatherAPIKey;
-    private static String measurementSystem;
 
     public static MainPresenter getMainPresenter(){
         if(mainPresenter == null)
@@ -67,11 +66,4 @@ public class ApplicationState {
         ApplicationState.openWeatherAPIKey = openWeatherAPIKey;
     }
 
-    public static String getMeasurementSystem() {
-        return "imperial";
-    }
-
-    public static void setMeasurementSystem(String measurementSystem) {
-        ApplicationState.measurementSystem = measurementSystem;
-    }
 }

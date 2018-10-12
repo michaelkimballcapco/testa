@@ -1,5 +1,7 @@
 package com.capco.weatherapp.weather.model;
 
+import com.capco.weatherapp.ApplicationState;
+
 public class CurrentWeather {
     private double temperature;
     private double humidity;
@@ -14,7 +16,8 @@ public class CurrentWeather {
     }
 
     public String getTemperatureStr(){
-        return String.valueOf(temperature);
+        return String.valueOf(temperature)
+                + ApplicationState.getMainPresenter().getSettingsService().getDegreeMeasurement();
     }
 
     public void setTemperature(double temperature) {
@@ -38,7 +41,8 @@ public class CurrentWeather {
     }
 
     public String getRainLevelStr(){
-        return String.valueOf(rainLevel);
+        return String.valueOf(rainLevel)
+                + ApplicationState.getMainPresenter().getSettingsService().getDistanceMeasurement();
     }
 
     public void setRainLevel(double rainLevel) {
@@ -62,7 +66,8 @@ public class CurrentWeather {
     }
 
     public String getWindSpeedStr(){
-        return String.valueOf(windSpeed);
+        return String.valueOf(windSpeed)
+                + ApplicationState.getMainPresenter().getSettingsService().getSpeedMeasurement();
     }
 
     public void setWindSpeed(double windSpeed) {

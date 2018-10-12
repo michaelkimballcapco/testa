@@ -10,8 +10,10 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -19,13 +21,12 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+import android.widget.CompoundButton;
 
 import com.capco.weatherapp.ApplicationState;
 import com.capco.weatherapp.R;
 import com.capco.weatherapp.gestures.SwipeHelper;
 import com.capco.weatherapp.location.model.Location;
-import com.capco.weatherapp.main.MainActivity;
 
 import java.util.List;
 
@@ -70,25 +71,25 @@ public class LocationListFragment extends Fragment implements LocationListView {
 
         drawerLayout.addDrawerListener(drawerToggle);
         NavigationView navigationView = view.findViewById(R.id.nv_base);
-        MenuItem settings = navigationView.getMenu().getItem(0);
-        MenuItem help = navigationView.getMenu().getItem(1);
-//        navigationView.getMenu().clear();
-//        View header = navigationView.getHeaderView(0);
-//        ViewGroup viewGroup = (ViewGroup) header.getParent();
-//        int index = viewGroup.indexOfChild(header);
-//        viewGroup.removeView(header);
-//        View nav = getLayoutInflater().inflate(R.layout.nav_settings, viewGroup, false);
-//        viewGroup.addView(nav, index);
+        MenuItem item = navigationView.getMenu().findItem(R.id.settings).getSubMenu().findItem(R.id.unit_of_measure);
+        LinearLayoutCompat rootView = (LinearLayoutCompat)item.getActionView();
+        SwitchCompat control = rootView.findViewById(R.id.sw_measurement);
+        control.setChecked(ApplicationState.getMainPresenter().getSettingsService().isMetricMeasurement());
+        control.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                ApplicationState.getMainPresenter().getSettingsService().saveMeasurementSetting(isChecked);
+            }
+        });
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id = item.getItemId();
                 switch(id)
                 {
-                    case R.id.settings:
-                        Toast.makeText(getContext(), "Settings",Toast.LENGTH_SHORT).show();
                     case R.id.help:
                         ApplicationState.getMainPresenter().switchToHelpFragment();
+                        return false;
                     default:
                         return true;
                 }
@@ -110,7 +111,6 @@ public class LocationListFragment extends Fragment implements LocationListView {
         adapter.setClickListener(new LocationRecyclerViewAdapter.ItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-//                Toast.makeText(getContext(), "Clicked: " + adapter.getItem(position).getName(), Toast.LENGTH_LONG).show();
                 ApplicationState.getMainPresenter().switchToWeatherFragment(adapter.getItem(position));
             }
         });
