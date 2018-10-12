@@ -7,8 +7,6 @@ import com.capco.weatherapp.weather.model.CurrentWeather;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import java.util.Objects;
-
 public class GsonUtil {
     private GsonUtil(){}
     private static Gson getGson(){

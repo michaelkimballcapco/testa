@@ -10,4 +10,6 @@
     <string name="cloudiness_label">Cloud Coverage: </string>
     <string name="wind_speed_label">Wind Speed: </string>
     <string name="wind_direction_label">Wind Direction: </string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
 </resources>

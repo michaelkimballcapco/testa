@@ -132,7 +132,7 @@ public class MapFragmentPresenter implements MapPresenter{
 
     private void updateSavableInfoWindow(final String city, final Marker marker){
         Handler mainHandler = new Handler(mapView.getContext().getMainLooper());
-        Runnable myRunnable = new Runnable() {
+        Runnable uiRunnable = new Runnable() {
             @Override
             public void run() {
                 marker.setTitle(city);
@@ -141,6 +141,6 @@ public class MapFragmentPresenter implements MapPresenter{
                 marker.showInfoWindow();
             }
         };
-        mainHandler.post(myRunnable);
+        mainHandler.post(uiRunnable);
     }
 }

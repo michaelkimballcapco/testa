@@ -1,9 +1,13 @@
 package com.capco.weatherapp.location;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,12 +25,14 @@ import com.capco.weatherapp.ApplicationState;
 import com.capco.weatherapp.R;
 import com.capco.weatherapp.gestures.SwipeHelper;
 import com.capco.weatherapp.location.model.Location;
+import com.capco.weatherapp.main.MainActivity;
 
 import java.util.List;
 
 public class LocationListFragment extends Fragment implements LocationListView {
 
     private RecyclerView recyclerView;
+    private ActionBarDrawerToggle drawerToggle;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -42,6 +48,8 @@ public class LocationListFragment extends Fragment implements LocationListView {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        if(drawerToggle.onOptionsItemSelected(item))
+            return true;
         switch (item.getItemId()) {
             case R.id.map_button:
                 ApplicationState.getMainPresenter().switchToMapFragment();
@@ -57,9 +65,31 @@ public class LocationListFragment extends Fragment implements LocationListView {
                 container, false);
         recyclerView = view.findViewById(R.id.lv_locations);
         ApplicationState.getLocationListPresenter().registerLocationListView(this);
+        DrawerLayout drawerLayout = view.findViewById(R.id.drawer_layout);
+        drawerToggle = new ActionBarDrawerToggle(getActivity(), drawerLayout,R.string.open, R.string.close);
+
+        drawerLayout.addDrawerListener(drawerToggle);
+        NavigationView navigationView = view.findViewById(R.id.nv_base);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int id = item.getItemId();
+                switch(id)
+                {
+                    case R.id.settings:
+                        Toast.makeText(getContext(), "Settings",Toast.LENGTH_SHORT).show();
+                    case R.id.help:
+                        Toast.makeText(getContext(), "Help",Toast.LENGTH_SHORT).show();
+                    default:
+                        return true;
+                }
+            }
+        });
         Toolbar toolbar = view.findViewById(R.id.toolbar);
         toolbar.setTitle(getString(R.string.app_name));
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        drawerToggle.syncState();
         return view;
     }
 
