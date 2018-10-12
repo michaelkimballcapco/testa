@@ -3,4 +3,11 @@
     <string name="city">Location</string>
     <string name="save">Save</string>
     <string name="delete">Delete</string>
+    <string name="current_forecast_label">Current Forecast</string>
+    <string name="temperature_label">Temperature: </string>
+    <string name="humidity_label">Humidity: </string>
+    <string name="rain_level_label">3 Hour Rain Level: </string>
+    <string name="cloudiness_label">Cloud Coverage: </string>
+    <string name="wind_speed_label">Wind Speed: </string>
+    <string name="wind_direction_label">Wind Direction: </string>
 </resources>

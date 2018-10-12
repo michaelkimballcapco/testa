@@ -1,5 +1,6 @@
 package com.capco.weatherapp.main;
 
+import com.capco.weatherapp.location.model.Location;
 import com.capco.weatherapp.location.service.LocationBookmarkService;
 
 public interface MainPresenter {
@@ -7,5 +8,6 @@ public interface MainPresenter {
     void unregisterActivity();
     void switchToMapFragment();
     void switchToLocationFragment();
+    void switchToWeatherFragment(Location location);
     LocationBookmarkService getLocationBookmarkService();
 }

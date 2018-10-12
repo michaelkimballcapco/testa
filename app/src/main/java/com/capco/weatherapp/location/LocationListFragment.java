@@ -71,7 +71,8 @@ public class LocationListFragment extends Fragment implements LocationListView {
         adapter.setClickListener(new LocationRecyclerViewAdapter.ItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Toast.makeText(getContext(), "Clicked: " + adapter.getItem(position).getName(), Toast.LENGTH_LONG).show();
+//                Toast.makeText(getContext(), "Clicked: " + adapter.getItem(position).getName(), Toast.LENGTH_LONG).show();
+                ApplicationState.getMainPresenter().switchToWeatherFragment(adapter.getItem(position));
             }
         });
         recyclerView.setAdapter(adapter);

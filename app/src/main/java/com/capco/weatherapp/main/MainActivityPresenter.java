@@ -2,6 +2,7 @@ package com.capco.weatherapp.main;
 
 import android.content.Context;
 
+import com.capco.weatherapp.location.model.Location;
 import com.capco.weatherapp.location.service.LocationBookmarkService;
 import com.capco.weatherapp.location.service.LocationBookmarkSharedPreferencesRepository;
 
@@ -42,5 +43,10 @@ public class MainActivityPresenter implements MainPresenter{
     @Override
     public void switchToLocationFragment() {
         mainView.switchToLocationFragment();
+    }
+
+    @Override
+    public void switchToWeatherFragment(Location location) {
+        mainView.switchToWeatherFragment(location);
     }
 }

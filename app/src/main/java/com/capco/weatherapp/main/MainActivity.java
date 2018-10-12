@@ -8,8 +8,10 @@ import android.os.Bundle;
 
 import com.capco.weatherapp.ApplicationState;
 import com.capco.weatherapp.location.LocationListFragment;
+import com.capco.weatherapp.location.model.Location;
 import com.capco.weatherapp.map.MapFragment;
 import com.capco.weatherapp.R;
+import com.capco.weatherapp.weather.WeatherFragment;
 
 public class MainActivity extends AppCompatActivity implements MainView {
 
@@ -21,6 +23,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
         setContentView(R.layout.activity_main);
         ApplicationState.getMainPresenter().registerActivity(this);
         ApplicationState.setGoogleAPIKey(getString(R.string.google_maps_key));
+        ApplicationState.setOpenWeatherAPIKey(getString(R.string.open_weather_key));
     }
 
     @Override
@@ -31,6 +34,13 @@ public class MainActivity extends AppCompatActivity implements MainView {
     @Override
     public void switchToLocationFragment() {
         switchFragment(new LocationListFragment());
+    }
+
+    @Override
+    public void switchToWeatherFragment(Location location) {
+        WeatherFragment weatherFragment = new WeatherFragment();
+        weatherFragment.setLocation(location);
+        switchFragment(weatherFragment);
     }
 
     private void switchFragment(Fragment fragment){

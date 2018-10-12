@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.capco.weatherapp.GsonUtil;
 import com.capco.weatherapp.api.ApiCallRunnable;
+import com.capco.weatherapp.location.model.Location;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.io.BufferedReader;
@@ -16,10 +17,10 @@ import java.util.Locale;
 
 public class WeatherCallRunnable extends ApiCallRunnable {
     private static final String TAG = "WeatherCall";
-    private static final String API = "https://maps.googleapis.com/maps/api/geocode/json?latlng=%1$f,%2$f&key=%3$s";
+    private static final String API = "http://api.openweathermap.org/data/2.5/weather?lat=%1$f&lon=%2$f&appid=%3$s&units=%4$s";
     private URL url;
-    public WeatherCallRunnable(LatLng point, String apiKey){
-        String apiString = String.format(Locale.US, API, point.latitude, point.longitude, apiKey);
+    public WeatherCallRunnable(Location location, String apiKey, String unit){
+        String apiString = String.format(Locale.US, API, location.getLatitude(), location.getLongitude(), apiKey, unit);
         try {
             url = new URL(apiString);
         } catch(MalformedURLException e){
@@ -42,14 +43,14 @@ public class WeatherCallRunnable extends ApiCallRunnable {
                     stringBuilder.append(line).append("\n");
                 }
                 bufferedReader.close();
-                lastResult = GsonUtil.getGeocodeAPICity(stringBuilder.toString());
+                lastResult = GsonUtil.getWeatherAPICurrentWeather(stringBuilder.toString());
                 super.run();
             }
             finally{
                 urlConnection.disconnect();
             }
         } catch (IOException e) {
-            Log.e(TAG, "Error connecting to Google Maps API", e);
+            Log.e(TAG, "Error connecting to Open Weather API", e);
         }
     }
 }
