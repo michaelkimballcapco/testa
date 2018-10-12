@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.capco.weatherapp.ApplicationState;
+import com.capco.weatherapp.help.HelpFragment;
 import com.capco.weatherapp.location.LocationListFragment;
 import com.capco.weatherapp.location.model.Location;
 import com.capco.weatherapp.map.MapFragment;
@@ -48,6 +49,11 @@ public class MainActivity extends AppCompatActivity implements MainView {
         WeatherFragment weatherFragment = new WeatherFragment();
         weatherFragment.setLocation(location);
         switchFragment(weatherFragment);
+    }
+
+    @Override
+    public void switchToHelpFragment() {
+        switchFragment(new HelpFragment());
     }
 
     private void switchFragment(Fragment fragment){

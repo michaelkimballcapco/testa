@@ -49,4 +49,9 @@ public class MainActivityPresenter implements MainPresenter{
     public void switchToWeatherFragment(Location location) {
         mainView.switchToWeatherFragment(location);
     }
+
+    @Override
+    public void switchToHelpFragment() {
+        mainView.switchToHelpFragment();
+    }
 }

@@ -1,5 +1,7 @@
 package com.capco.weatherapp;
 
+import com.capco.weatherapp.help.HelpFragmentPresenter;
+import com.capco.weatherapp.help.HelpPresenter;
 import com.capco.weatherapp.location.LocationListFragmentPresenter;
 import com.capco.weatherapp.location.LocationListPresenter;
 import com.capco.weatherapp.main.MainActivityPresenter;
@@ -14,6 +16,7 @@ public class ApplicationState {
     private static MainPresenter mainPresenter;
     private static MapPresenter mapPresenter;
     private static WeatherPresenter weatherPresenter;
+    private static HelpPresenter helpPresenter;
     private static LocationListPresenter locationListPresenter;
     private static String googleAPIKey;
     private static String openWeatherAPIKey;
@@ -40,6 +43,12 @@ public class ApplicationState {
         if(locationListPresenter == null)
             locationListPresenter = new LocationListFragmentPresenter();
         return locationListPresenter;
+    }
+
+    public static HelpPresenter getHelpPresenter(){
+        if(helpPresenter == null)
+            helpPresenter = new HelpFragmentPresenter();
+        return helpPresenter;
     }
 
     public static String getGoogleAPIKey() {

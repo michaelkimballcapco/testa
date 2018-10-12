@@ -8,5 +8,6 @@ public interface MainView {
     void switchToMapFragment();
     void switchToLocationFragment();
     void switchToWeatherFragment(Location location);
+    void switchToHelpFragment();
     Context getApplicationContext();
 }

@@ -9,5 +9,6 @@ public interface MainPresenter {
     void switchToMapFragment();
     void switchToLocationFragment();
     void switchToWeatherFragment(Location location);
+    void switchToHelpFragment();
     LocationBookmarkService getLocationBookmarkService();
 }

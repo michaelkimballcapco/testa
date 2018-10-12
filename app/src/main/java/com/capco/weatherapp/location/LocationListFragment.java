@@ -70,6 +70,15 @@ public class LocationListFragment extends Fragment implements LocationListView {
 
         drawerLayout.addDrawerListener(drawerToggle);
         NavigationView navigationView = view.findViewById(R.id.nv_base);
+        MenuItem settings = navigationView.getMenu().getItem(0);
+        MenuItem help = navigationView.getMenu().getItem(1);
+//        navigationView.getMenu().clear();
+//        View header = navigationView.getHeaderView(0);
+//        ViewGroup viewGroup = (ViewGroup) header.getParent();
+//        int index = viewGroup.indexOfChild(header);
+//        viewGroup.removeView(header);
+//        View nav = getLayoutInflater().inflate(R.layout.nav_settings, viewGroup, false);
+//        viewGroup.addView(nav, index);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -79,7 +88,7 @@ public class LocationListFragment extends Fragment implements LocationListView {
                     case R.id.settings:
                         Toast.makeText(getContext(), "Settings",Toast.LENGTH_SHORT).show();
                     case R.id.help:
-                        Toast.makeText(getContext(), "Help",Toast.LENGTH_SHORT).show();
+                        ApplicationState.getMainPresenter().switchToHelpFragment();
                     default:
                         return true;
                 }
